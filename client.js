@@ -5,6 +5,8 @@ var CAN_H = 640;
 var FPS = 60;
 var smoothingLoops = 5;
 
+var player = new Player();
+
 var GameStates = {
     'MainMenu': 0,
     'WorldMap': 1,
@@ -42,15 +44,14 @@ function instantiateWorldMap(xSize, ySize) {
     }
     console.log(map);
 
-    for (let k = 0; k < smoothingLoops; k++) {
+    /*for (let k = 0; k < smoothingLoops; k++) {
         map = smoothMap(map);
-    }
+    }*/
 
     return map;
 }
 
 function smoothMap(map) {
-
     let oldMap = map;
     let newMap = oldMap;
 
@@ -81,6 +82,7 @@ function draw() {
             m = "Main Menu";
             break;
         case GameStates.WorldMap:
+            ctx.clearRect(0, 0, CAN_W, CAN_H);
             drawGroundTiles();
             break;
         case GameStates.Dungeon:
@@ -97,9 +99,9 @@ function draw() {
 function drawGroundTiles() {
     for (let i = 0; i < worldMap.length; i++) {
         for (let j = 0; j < worldMap[0].length; j++) {
-            if (worldMap[i][j] == 0) {
-
-            }
+            if (worldMap[i][j] == 0) ctx.fillStyle = 'blue';
+            else ctx.fillStyle = 'green';
+            ctx.fillRect(i*16, j*16, 16, 16);
         }
     }
 }
