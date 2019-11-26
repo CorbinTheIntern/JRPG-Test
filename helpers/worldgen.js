@@ -1,3 +1,5 @@
+var randomFillPercent = 0.25;
+
 function instantiateWorldMap(xSize, ySize) {
     let map = new Array(ySize);
     for (let i = 0; i < xSize; i++) {
@@ -7,7 +9,9 @@ function instantiateWorldMap(xSize, ySize) {
     for (let x = 0; x < xSize; x++) {
         for (let y = 0; y < ySize; y++) {
             let rand = Math.random();
-            if (rand > 0.5 && x != 0 && y != 0 && x != xSize - 1 && y != ySize - 1) map[x][y] = 1;
+            if (rand > randomFillPercent && 
+                (x != 0 && y != 0 && x != xSize - 1 && y != ySize - 1) &&
+                (x != MIDDLE_TILE_X && y != MIDDLE_TILE_Y)) map[x][y] = 1;
             else map[x][y] = 0;
         }
     }

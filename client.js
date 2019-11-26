@@ -2,10 +2,12 @@ var can, ctx;
 
 var CAN_W = 960;
 var CAN_H = 640;
+var MIDDLE_TILE_X = CAN_W/32;
+var MIDDLE_TILE_Y = CAN_H/32;
 var FPS = 60;
 var smoothingLoops = 5;
 
-var player = new Player();
+var player;
 
 var GameStates = {
     'MainMenu': 0,
@@ -22,10 +24,10 @@ function init() {
     can.width = CAN_W;
     can.height = CAN_H;
 
+    player = new Player(MIDDLE_TILE_X, MIDDLE_TILE_Y);
     currentGameState = GameStates.MainMenu;
-
     worldMap = instantiateWorldMap(60, 40);
-
+    
     setInterval(_LOOP, 1000 / FPS);
 }
 
@@ -34,14 +36,17 @@ function _LOOP() {
 }
 
 function draw() {
+    ctx.clearRect(0, 0, CAN_W, CAN_H);
     let m;
     switch (currentGameState) {
         case GameStates.MainMenu:
             m = "Main Menu";
             break;
         case GameStates.WorldMap:
-            ctx.clearRect(0, 0, CAN_W, CAN_H);
             drawGroundTiles();
+            /*drawTerrainFeatures();
+            drawEnvironmentObjects();*/
+            drawPlayer();
             break;
         case GameStates.Dungeon:
         m = "Dungeon";
@@ -50,7 +55,6 @@ function draw() {
             m = "Error.";
             break;
     }
-
     console.log(m);
 }
 
@@ -64,6 +68,11 @@ function drawGroundTiles() {
     }
 }
 
-function drawObject(Sprite, position) {
-    ctx.drawImage(Sprite.img, position.x, position.y);
+function drawPlayer() {
+    ctx.fillStyle = 'white';
+    ctx.fillRect(player.x*16+2, player.y*16+2, 12, 12);
 }
+
+/*function drawObject(Sprite, position) {
+    ctx.drawImage(Sprite.img, position.x, position.y);
+}*/
