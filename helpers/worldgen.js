@@ -9,12 +9,13 @@ function instantiateWorldMap(xSize, ySize) {
     for (let x = 0; x < xSize; x++) {
         for (let y = 0; y < ySize; y++) {
             let rand = Math.random();
-            if (rand > randomFillPercent && 
-                (x != 0 && y != 0 && x != xSize - 1 && y != ySize - 1) &&
-                (x != MIDDLE_TILE_X && y != MIDDLE_TILE_Y)) map[x][y] = 1;
+            if (rand > randomFillPercent && (x != 0 && y != 0 && x != xSize - 1 && y != ySize - 1)) map[x][y] = 1;
             else map[x][y] = 0;
         }
     }
+    
+    map[MIDDLE_TILE_X][MIDDLE_TILE_Y] = 1;
+    
     console.log(map);
 
     /*for (let k = 0; k < smoothingLoops; k++) {
